@@ -5,7 +5,11 @@ default:
 
 variables:
   DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
+  # Create the certificates inside this directory for both the server
+  # and client. The certificates used by the client will be created in
+  # /certs/client so we only need to share this directory with the
+  # volume mount in `config.toml`.
+  DOCKER_TLS_CERTDIR: "/certs"
 
 services:
   - docker:19.03.0-dind
@@ -20,6 +24,7 @@ stages:
 Build container image:
   stage: build
   script:
+    - cd container-litecoin/Dockerfile
     - docker build -t litecoin .
 
 Push container image:
