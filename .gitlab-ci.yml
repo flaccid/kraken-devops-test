@@ -20,10 +20,11 @@ before_script:
 
 stages:
   - build
-  - push
+  - test
+  - publish
 
-# usually we would save the image as an artifact and use it in the push stage
-# which could be on a different runner, but for ease, we'll push latest
+# usually we would save the image as an artifact and use it in other stages
+# which could be on different runners, but for ease, we'll push latest
 # and pull it in the push stage to be re-tagged
 Build container image:
   stage: build
@@ -32,8 +33,16 @@ Build container image:
     - docker build -t flaccid/litecoin:latest .
     - docker push flaccid/litecoin:latest
 
+Scan container image:
+  stage: test
+  script:
+    - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+    - apk add --no-cache --update curl
+    - docker pull flaccid/litecoin:latest
+    - grype flaccid/litecoin:latest
+
 Push container image:
-  stage: push
+  stage: publish
   script:
     - docker pull flaccid/litecoin:latest
     - docker tag flaccid/litecoin:latest flaccid/litecoin:0.18.1
