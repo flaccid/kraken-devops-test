@@ -1,4 +1,4 @@
-# container-litecoind
+# container-litecoin
 
 A simple container to demonstrate running `litecoind`.
 
