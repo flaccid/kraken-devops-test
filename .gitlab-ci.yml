@@ -13,6 +13,7 @@ variables:
 
 services:
   - docker:19.03.0-dind
+  - echo -n "$DOCKERHUB_TOKEN" | docker login --username flaccid --password-stdin
 
 before_script:
   - docker info
@@ -24,10 +25,12 @@ stages:
 Build container image:
   stage: build
   script:
-    - cd container-litecoin/Dockerfile
-    - docker build -t litecoin .
+    - cd container-litecoin
+    - docker build -t flaccid/litecoin:0.18.1 .
 
 Push container image:
   stage: push
   script:
-    - echo "insert push stage"
+    - docker tag flaccid/litecoin:0.18.1 flaccid/litecoin:latest
+    - docker push flaccid/litecoin:0.18.1
+    - docker push flaccid/litecoin:latest
