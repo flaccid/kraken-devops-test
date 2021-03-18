@@ -1,5 +1,5 @@
 default:
-  image: docker:20
+  image: docker:20-dind
 
 stages:
   - build
