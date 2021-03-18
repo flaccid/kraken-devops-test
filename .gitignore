@@ -1,0 +1,10 @@
+# ignore the test pdf which is binary
+*.pdf
+
+# terraform cache
+.terraform
+
+ # terraform state files
+*.tfstate
+.terraform.lock.hcl
+terraform.tfstate.*
