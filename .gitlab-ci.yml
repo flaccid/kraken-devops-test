@@ -22,15 +22,19 @@ stages:
   - build
   - push
 
+# usually we would save the image as an artifact and use it in the push stage
+# which could be on a different runner, but for ease, we'll push latest
+# and pull it in the push stage to be re-tagged
 Build container image:
   stage: build
   script:
     - cd container-litecoin
-    - docker build -t flaccid/litecoin:0.18.1 .
+    - docker build -t flaccid/litecoin:latest .
+    - docker push flaccid/litecoin:latest
 
 Push container image:
   stage: push
   script:
-    - docker tag flaccid/litecoin:0.18.1 flaccid/litecoin:latest
+    - docker pull flaccid/litecoin:latest
+    - docker tag flaccid/litecoin:latest flaccid/litecoin:0.18.1
     - docker push flaccid/litecoin:0.18.1
-    - docker push flaccid/litecoin:latest
