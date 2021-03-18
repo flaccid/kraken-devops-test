@@ -13,10 +13,10 @@ variables:
 
 services:
   - docker:19.03.0-dind
-  - echo -n "$DOCKERHUB_TOKEN" | docker login --username flaccid --password-stdin
 
 before_script:
   - docker info
+  - echo -n "$DOCKERHUB_TOKEN" | docker login --username flaccid --password-stdin
 
 stages:
   - build
