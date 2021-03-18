@@ -1,0 +1,19 @@
+default:
+  image: docker:20
+
+stages:
+  - build
+  - push
+
+before_script:
+  - docker info
+
+Build container image:
+  stage: build
+  script:
+    - echo "insert build stage"
+
+Push container image:
+  stage: push
+  script:
+    - echo "insert push stage"
