@@ -24,6 +24,15 @@ The text manipluation excercise:
 
 ## Solutions
 
- - Script kiddy using shell binaries - [`sc.sh`](./sc.sh)
- - `TODO`: Advanced script kiddy using POSIX/sh - [`sca.sh`](./sca.sh)
+ - Script kiddy using shell binaries - [`sk.sh`](./sk.sh)
+ - `TODO`: Advanced script kiddy using POSIX/sh - [`ska.sh`](./ska.sh)
  - Grown-up using a simple golang program (note that https://golang.org/pkg/encoding/csv/ does not yet support writing with quoted field encapsulation) - [`gu.go`](./gu.go)
+
+## More Scripting to Checkout
+
+As this was quickly done and doesn't demonstrate much in the way of shell scripting, checkout my [github](https://github.com/flaccid).
+
+Some repositories that have shell scripts:
+- https://github.com/flaccid/machine-image-tools
+- https://github.com/flaccid/shell_scripts
+- https://github.com/flaccid/rightscripts
