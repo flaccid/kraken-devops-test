@@ -36,8 +36,8 @@ Build container image:
 Scan container image:
   stage: test
   script:
-    - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
     - apk add --no-cache --update curl
+    - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
     - docker pull flaccid/litecoin:latest
     - grype flaccid/litecoin:latest
 
