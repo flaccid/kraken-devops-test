@@ -5,6 +5,7 @@ data=$(cat us-500.csv | sed -e '1d')
 
 # re-process removing the company name and redirect to file
 # the regex is to support values that have a comma in them
+# https://www.gnu.org/software/gawk/manual/html_node/Splitting-By-Content.html
 echo "$data" | gawk '
 BEGIN {
     FPAT = "([^,]+)|(\"[^\"]+\")"
