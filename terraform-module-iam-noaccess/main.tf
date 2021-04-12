@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "no-access-assume-role-policy" {
 
     principals {
       type        = "AWS"
-      identifiers = [join("", ["arn:aws:iam::", data.aws_caller_identity.current.account_id, ":role/", var.stage, "-no-access*"])]
+      identifiers = [join("", ["arn:aws:iam::", data.aws_caller_identity.current.account_id, ":role/", var.stage, "-no-access"])]
     }
   }
 }
