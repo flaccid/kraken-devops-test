@@ -1,13 +1,13 @@
-# the iam role mandates an assume role policy, closest to wildcard used
-# https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "no-access-assume-role-policy" {
   statement {
     actions = ["sts:AssumeRole"]
-    effect  = "Deny"
+    effect  = "Allow"
 
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = [join("", ["arn:aws:iam::", data.aws_caller_identity.current.account_id, ":role/", var.stage, "-no-access*"])]
     }
   }
 }
@@ -19,14 +19,11 @@ resource "aws_iam_role" "no-access" {
   assume_role_policy = data.aws_iam_policy_document.no-access-assume-role-policy.json
 }
 
-# https://www.terraform.io/docs/providers/aws/r/iam_group.html
 resource "aws_iam_group" "no-access" {
   count = var.enabled ? 1 : 0
   name  = join("-", [var.stage, "no-access"])
 }
 
-# by default, all requests are denied, but anyways
-# https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
 resource "aws_iam_policy" "no-access" {
   count       = var.enabled ? 1 : 0
   name        = join("-", [var.stage, "no-access"])
